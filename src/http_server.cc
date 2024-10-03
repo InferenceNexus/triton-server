@@ -472,6 +472,8 @@ ReadDataFromJsonHelper(
   } else {
     // Check if writing to 'serialized' is overrunning the expected byte_size
     if (*counter >= expected_cnt) {
+      LOG_VERBOSE(1) << "-------------\n Shape does not match true shape of "
+                     "'data' field \n-------------";
       return TRITONSERVER_ErrorNew(
           TRITONSERVER_ERROR_INTERNAL,
           "Shape does not match true shape of 'data' field");
@@ -577,6 +579,8 @@ ReadDataFromJsonHelper(
         RETURN_IF_ERR(tensor_data.AsString(&cstr, &len));
         if (static_cast<int64_t>(*counter + len + sizeof(uint32_t)) >
             expected_cnt) {
+          LOG_VERBOSE(1) << "-------------\n Shape does not match true shape of "
+                     "'data' field \n-------------";
           return TRITONSERVER_ErrorNew(
               TRITONSERVER_ERROR_INTERNAL,
               "Shape does not match true shape of 'data' field");
@@ -638,6 +642,8 @@ ReadDataFromJson(
 
   // Check if 'ReadDataFromJsonHelper' reads less than the expected byte size
   if (counter != expected_cnt) {
+    LOG_VERBOSE(1) << "-------------\n Shape does not match true shape of "
+                     "'data' field \n-------------";
     return TRITONSERVER_ErrorNew(
         TRITONSERVER_ERROR_INTERNAL,
         "Unable to parse 'data': Shape does not match true shape of 'data' "
