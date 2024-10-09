@@ -175,6 +175,8 @@ RUN copy "%CUDA_INSTALL_ROOT_WP%\extras\visual_studio_integration\MSBuildExtensi
 
 RUN setx PATH "%CUDA_INSTALL_ROOT_WP%\bin;%PATH%"
 
+ENV CUDA_VERSION=${CUDA_VERSION}
+
 ARG CUDNN_VERSION=9.4.0.58
 ENV CUDNN_VERSION ${CUDNN_VERSION}
 COPY --from=dependency_base /cudnn /cudnn
